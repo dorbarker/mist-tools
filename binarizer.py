@@ -10,7 +10,7 @@ def arguments():
     parser.add_argument('-j', '--jsons', nargs='+', required=True, help='Path(s) to JSONs')
     parser.add_argument('-t','--test', help = "MIST test name")
     parser.add_argument('-o','--out', help = "Destination for out file")
-    parser.add_argument('--trunc', action='store_true', default = 'store_false')
+    parser.add_argument('--trunc', action='store_true', help="Reverses the output; i.e. 1 is a truncation and 0 is non-truncated.")
 
     return parser.parse_args()
 

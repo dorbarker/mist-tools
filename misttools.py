@@ -29,14 +29,14 @@ def arguments():
     ttype_kw = {'choices' : ["allelic", "pcr"], 'help':"MIST test type"}
 
     truncs_opts = ('--trunc',)
-    truncs_kw = {'action':'store_true', 'default' : 'store_false', 'help' : "Return truncations as True instead of false"}
+    truncs_kw = {'action':'store_true', 'help' : "Return truncations as True instead of false"}
 
     quiet_opts = ('-q', '--quiet')
     quiet_kw = {'action':'store_true', 'help': "Suppresses error output."}
 
 
     # Ad hoc Sequence Type Generation
-    parser_st = commands.add_parser('st', help = "Generate qad hoc sequence types for your MLST-like scheme")
+    parser_st = commands.add_parser('st', help = "Generate ad hoc sequence types for your MLST-like scheme")
     parser_st.add_argument(*json_opts, **json_kw)
     parser_st.add_argument(*testname_opts, **testname_kw)
     parser_st.add_argument(*outpath_opts, **outpath_kw)
