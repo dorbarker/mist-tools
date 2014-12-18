@@ -32,7 +32,7 @@ Each unique combination of alleles is an ST.
 
 **Allelic Distance Matrix**
 
-Calculates the [[Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) between strains in a pair-wise. The resulting matrix is written to a CSV.
+Calculates the [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) between strains in a pair-wise. The resulting matrix is written to a CSV.
 
 **Binarizer**
 

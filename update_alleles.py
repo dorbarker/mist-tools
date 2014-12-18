@@ -66,7 +66,7 @@ def novel_alleles(genes, test):
                     if (not trunc) and len(genes[gene]["Amplicon"]) > 0:
                         yield gene, genes[gene]["Amplicon"]
 
-def get_novel_alleles(jsons, known_alleles, test):
+def get_novel_alleles(jsons, known_alleles, tests):
     """Loops over JSONs, finds novel alleles,
         and tracks them in a dictionary.
     """
@@ -76,19 +76,21 @@ def get_novel_alleles(jsons, known_alleles, test):
 
     for json in jsons:
         data = mistutils.load_json(json)
-
-        for strain, genes in mistutils.loop_json_genomes(data, test):
         
-            for gene, potential in novel_alleles(genes, test):
+        for test in tests:
 
-                if potential not in known_alleles[gene]:
-                    
-                    try:
-                        novel[gene].append(potential)
-                    except KeyError:
-                        novel[gene] = [potential]
+            for strain, genes in mistutils.loop_json_genomes(data, test):
+            
+                for gene, potential in novel_alleles(genes, test):
 
-                    known_alleles[gene].add(potential)
+                    if potential not in known_alleles[gene]:
+                        
+                        try:
+                            novel[gene].append(potential)
+                        except KeyError:
+                            novel[gene] = [potential]
+
+                        known_alleles[gene].add(potential)
 
     return novel
 
@@ -122,11 +124,11 @@ def fix_headers(filename):
 
 def process(args):
 
-    jsons = mistutls.get_jsons(jsonpaths)
+    jsons = mistutils.get_jsons(args.jsons)
 
     known = get_known_alleles(args.fastas)
 
-    novel = get_novel_alleles(jsons, known, args.test)
+    novel = get_novel_alleles(jsons, known, args.tests)
 
     write_novel_alleles(args.fastas, novel)
 

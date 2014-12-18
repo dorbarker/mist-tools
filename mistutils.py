@@ -46,10 +46,15 @@ def get_jsons(json_dirs):
     jsons = []
     
     for path in json_dirs:
-        
-        jpaths = [os.path.join(path, x) for x in
-                    os.listdir(path) if '.json' in x]
 
-        jsons.extend(jpaths)
+        if '.json' in path:
+            jsons.append(os.path.abspath(path))
+
+        else:
+        
+            jpaths = [os.path.join(path, x) for x in
+                        os.listdir(path) if '.json' in x]
+
+            jsons.extend(jpaths)
 
     return jsons
