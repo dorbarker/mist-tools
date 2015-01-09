@@ -97,9 +97,11 @@ def get_novel_alleles(jsons, known_alleles, tests):
 def write_novel_alleles(alleles, novel):
     """Appends new alleles to multifasta file.
     """
+    alleles_dict = {mistutils.basename(x):x for x in os.listdir(alleles)}
+
     for gene in novel:
 
-        filename = os.path.join(alleles, gene + '.fasta')
+        filename = os.path.join(alleles, alleles_dict[gene])
 
         with open(filename, 'a') as f:
             for allele in novel[gene]:

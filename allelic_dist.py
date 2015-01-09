@@ -7,7 +7,7 @@ def arguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-j', '--jsons', nargs='+', required=True, help='Path(s) to JSONs')
-    parser.add_argument('-t', '--test', required=True, help="MIST test name")
+    parser.add_argument('-t', '--tests', required=True, help="MIST test name")
     parser.add_argument('-o', '--out', required=True, help='Matrix outpath')
 
     return parser.parse_args()
@@ -96,9 +96,10 @@ def process(args):
     for j in jsons:
         
         data = mistutils.load_json(j)
-        
-        for strain, genes in mistutils.loop_json_genomes(data, args.test):
-            strains_calls[strain] = parse_json(genes, args.test)
+        for test in args.tests:
+            
+            for strain, genes in mistutils.loop_json_genomes(data, test):
+                strains_calls[strain] = parse_json(genes, test)
 
     mat = build_matrix(strains_calls)
 
